@@ -5,6 +5,7 @@ function App() {
   const [language, setLanguage] = useState("C++");
   const [code, setCode] = useState("");
   const [review, setReview] = useState("");
+  const [darkMode, setDarkMode] = useState(false);  
   const [loading, setLoading] = useState(false);
 
 
@@ -43,7 +44,17 @@ function App() {
 
 
   return (
-    <div className="container mt-5">
+    <div className={darkMode ? "dark-theme container mt-5" : "container mt-5"}>  
+
+
+    <div className="text-end mb-3">
+        <button
+            className="btn btn-secondary"
+            onClick={() => setDarkMode(!darkMode)}
+  >
+            {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+        </button>
+    </div>
 
       <h1 className="text-center">
         CodeSense AI
@@ -84,7 +95,7 @@ function App() {
         </label>
 
         <textarea
-          className="form-control"
+          className={darkMode ? "form-control bg-dark text-white" : "form-control"}
           rows="12"
           placeholder={`Paste your ${language} code here...`}
           value={code}
