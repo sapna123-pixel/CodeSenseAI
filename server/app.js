@@ -24,7 +24,9 @@ app.get("/", (req, res) => {
 app.post("/review", async (req, res) => {
 
     try {
+
         const { code, language } = req.body;
+
 
         if (!code) {
             return res.status(400).json({
@@ -38,19 +40,56 @@ app.post("/review", async (req, res) => {
             model: "llama-3.3-70b-versatile",
 
             messages: [
+
                 {
                     role: "system",
-                    content:
-                    "You are an expert software engineer. Review the code, find bugs, suggest improvements, and explain best practices."
+                    content: `
+You are an expert software engineer and AI code reviewer.
+
+Analyze the given code and provide a clean Markdown formatted review.
+
+Include these sections:
+
+## Bugs and Issues
+Find bugs, errors, or possible problems.
+
+## Suggestions
+Give improvements to make the code better.
+
+## Best Practices
+Mention important coding practices.
+
+## Time Complexity
+Only write Big-O notation.
+Example:
+O(n)
+
+## Space Complexity
+Only write Big-O notation.
+Example:
+O(1)
+
+## Optimized Code
+Provide improved and cleaner code.
+
+Rules:
+- Do not explain Time Complexity.
+- Do not explain Space Complexity.
+- Only provide Big-O notation for complexity.
+- Keep the response concise.
+- Use Markdown headings.
+`
                 },
 
                 {
                     role: "user",
-                    content:
-                    `Review this ${language || "programming"} code:
+                    content: `
+Review this ${language || "programming"} code:
 
-                    ${code}`
+${code}
+`
                 }
+
             ],
 
             temperature: 0.3
@@ -68,11 +107,12 @@ app.post("/review", async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.log("AI Error:", error);
 
         res.status(500).json({
             error: "AI review failed"
         });
+
     }
 
 });

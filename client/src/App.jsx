@@ -1,4 +1,6 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
 
 
       const data = await response.json();
+
+      console.log(data);
 
       setReview(data.review);
 
@@ -134,22 +138,48 @@ function App() {
         </h3>
 
 
-        <div 
-          className="border rounded p-4 bg-light"
-          style={{
-            whiteSpace: "pre-wrap",
-            minHeight: "200px",
-            fontFamily: "monospace"
-          }}
+        <div
+  className={
+    darkMode
+    ? "border rounded p-4 bg-dark text-white"
+    : "border rounded p-4 bg-light"
+  }
+  style={{
+    minHeight: "200px",
+  }}
+>
+
+{
+  review ? (
+    <ReactMarkdown
+  components={{
+    code({node, inline, className, children, ...props}) {
+
+      const match = /language-(\w+)/.exec(className || "");
+
+      return !inline && match ? (
+        <SyntaxHighlighter
+          language={match[1]}
+          {...props}
         >
+          {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+      ) : (
+        <code {...props}>
+          {children}
+        </code>
+      );
+    }
+  }}
+>
+  {review}
+</ReactMarkdown>
+  ) : (
+    "Your AI review will appear here..."
+  )
+}
 
-          {
-            review 
-            ? review
-            : "Your AI review will appear here..."
-          }
-
-        </div>
+</div>
 
 
       </div>
