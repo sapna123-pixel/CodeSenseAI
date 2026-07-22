@@ -28,23 +28,8 @@ AI:
 
 ## How to Run
 
-### Frontend
-
-```bash
-cd client
-npm install
-npm run dev
-
-
-### Backend
-
-```bash
-cd server
-npm install
-node app.js
-
-
-
 ## 🚀 Live Demo
 https://codesense-review.netlify.app/
+
+
 
