@@ -46,6 +46,5 @@ node app.js
 
 
 ## 🚀 Live Demo
-
-🌐 https://codesense-review.netlify.app/
+https://codesense-review.netlify.app/
 
