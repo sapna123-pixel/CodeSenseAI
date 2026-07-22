@@ -18,7 +18,7 @@ function App() {
 
     try {
 
-      const response = await fetch("http://localhost:5000/review", {
+      const response = await fetch("https://codesenseai-7zfy.onrender.com/review", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
