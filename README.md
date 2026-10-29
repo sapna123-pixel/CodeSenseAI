@@ -26,7 +26,6 @@ Backend:
 AI:
 - Groq API
 
-## How to Run
 
 ## 🚀 Live Demo
 https://codesense-review.netlify.app/
