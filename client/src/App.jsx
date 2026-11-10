@@ -7,7 +7,7 @@ function App() {
   const [language, setLanguage] = useState("C++");
   const [code, setCode] = useState("");
   const [review, setReview] = useState("");
-  const [darkMode, setDarkMode] = useState(false);  
+  const [darkMode, setDarkMode] = useState(false);
   const [loading, setLoading] = useState(false);
 
 
@@ -23,7 +23,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           language: language,
           code: code
         }),
@@ -36,8 +36,8 @@ function App() {
 
       setReview(data.review);
 
-    } 
-    catch(error) {
+    }
+    catch (error) {
 
       setReview("❌ Error connecting to AI server");
 
@@ -48,17 +48,17 @@ function App() {
 
 
   return (
-    <div className={darkMode ? "dark-theme container mt-5" : "container mt-5"}>  
+    <div className={darkMode ? "dark-theme container mt-5" : "container mt-5"}>
 
 
-    <div className="text-end mb-3">
+      <div className="text-end mb-3">
         <button
-            className="btn btn-secondary"
-            onClick={() => setDarkMode(!darkMode)}
-  >
-            {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+          className="btn btn-secondary"
+          onClick={() => setDarkMode(!darkMode)}
+        >
+          {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
         </button>
-    </div>
+      </div>
 
       <h1 className="text-center">
         CodeSense AI
@@ -119,9 +119,9 @@ function App() {
         >
 
           {
-            loading 
-            ? "Analyzing Code..." 
-            : "Review Code"
+            loading
+              ? "Analyzing Code..."
+              : "Review Code"
           }
 
         </button>
@@ -139,47 +139,47 @@ function App() {
 
 
         <div
-  className={
-    darkMode
-    ? "border rounded p-4 bg-dark text-white"
-    : "border rounded p-4 bg-light"
-  }
-  style={{
-    minHeight: "200px",
-  }}
->
-
-{
-  review ? (
-    <ReactMarkdown
-  components={{
-    code({node, inline, className, children, ...props}) {
-
-      const match = /language-(\w+)/.exec(className || "");
-
-      return !inline && match ? (
-        <SyntaxHighlighter
-          language={match[1]}
-          {...props}
+          className={
+            darkMode
+              ? "border rounded p-4 bg-dark text-white"
+              : "border rounded p-4 bg-light"
+          }
+          style={{
+            minHeight: "200px",
+          }}
         >
-          {String(children).replace(/\n$/, "")}
-        </SyntaxHighlighter>
-      ) : (
-        <code {...props}>
-          {children}
-        </code>
-      );
-    }
-  }}
->
-  {review}
-</ReactMarkdown>
-  ) : (
-    "Your AI review will appear here..."
-  )
-}
 
-</div>
+          {
+            review ? (
+              <ReactMarkdown
+                components={{
+                  code({ node, inline, className, children, ...props }) {
+
+                    const match = /language-(\w+)/.exec(className || "");
+
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        language={match[1]}
+                        {...props}
+                      >
+                        {String(children).replace(/\n$/, "")}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code {...props}>
+                        {children}
+                      </code>
+                    );
+                  }
+                }}
+              >
+                {review}
+              </ReactMarkdown>
+            ) : (
+              "Your AI review will appear here..."
+            )
+          }
+
+        </div>
 
 
       </div>
